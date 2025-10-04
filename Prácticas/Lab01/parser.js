@@ -6,9 +6,9 @@ import { parse } from "node-html-parser";
 const Info = [];
 const Files = ["aceites.html", "chocolate.html", "aguas.html"];
 
-function read_file(file) {
+export function read_file(file) {
   try {
-    return fs.readFileSync(file, "utf8");
+    return fs.readFileSync("./resources/" + file, "utf8");
   } catch (error) {
     console.error("Error while reading file: ", error);
   }
@@ -16,7 +16,7 @@ function read_file(file) {
 
 function save_file(file) {
 	try {
-  	fs.writeFileSync(file, JSON.stringify(Info, null, 2));
+  	fs.writeFileSync("./resources/" + file, JSON.stringify(Info, null, 2));
   	console.log("File successfully saved.");
 	} catch (error) {
 	  console.error("Error while saving file: ", error);
