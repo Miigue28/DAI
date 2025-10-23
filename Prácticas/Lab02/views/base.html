@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}My Website{% endblock %}</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+  <script src="/bootstrap/js/bootstrap.js"></script>
+  {% block extra_head %}{% endblock %}
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+  <header class="bg-white border-bottom">
+    <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <svg width="34" height="34" viewBox="0 0 24 24" class="me-2" aria-hidden="true" focusable="false">
+            <rect width="24" height="24" rx="4" fill="#0d6efd"></rect>
+            <text x="12" y="16" text-anchor="middle" font-size="12" fill="white" font-family="Arial, Helvetica, sans-serif">M</text>
+          </svg>
+          <span class="fw-bold">MyShop</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbarContent" aria-controls="mainNavbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbarContent">
+          <form class="d-flex my-2 my-lg-0 ms-lg-3 flex-shrink-0" role="search" action="/search-results" method="get" style="max-width:320px;">
+            <input class="form-control me-2 rounded-pill" type="search" placeholder="Buscar productos" name="q">
+            <button class="btn btn-outline-primary rounded-pill" type="submit">Buscar</button>
+          </form>
+      
+          <ul class="navbar-nav nav-underline ms-lg-3">
+            <li class="nav-item text-nowrap">
+              <a class="nav-link" href="/category/aceites">Categorías</a>
+            </li>
+            <li class="nav-item text-nowrap">
+              <a class="nav-link" href="/category/chocolate">Listas</a>
+            </li>
+          </ul>
+      
+          <div class="d-flex align-items-center gap-3 flex-shrink-0 ms-auto">
+            <a class="position-relative text-decoration-none text-dark" href="/cart" aria-label="View cart">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 6h15l-1.5 9.5a2 2 0 0 1-2 1.5H9.5a2 2 0 0 1-2-1.5L6 6z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="10" cy="20" r="1" fill="currentColor"/><circle cx="18" cy="20" r="1" fill="currentColor"/>
+                <path d="M26 2h-4l-2.68 13.39" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              {% if cart_item_count %}
+                <span class="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle" style="font-size:.65rem">{{ cart_item_count }}</span>
+              {% endif %}
+            </a>
+            <a class="text-dark" href="/account" aria-label="Account">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 20a8 8 0 0 1 16 0" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container flex-fill">
+    <div style="padding-top: 100px">
+      {% block content %}
+      <p>This is the default content.</p>
+      {% endblock %}
+    </div>
+  </main>
+
+  <footer class="bg-light text-center py-3 mt-auto">
+    <p>&copy; 2025 My Website</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{% extends "portada.html" %}
+
+{% block card %}
+
+<div class="card" style="width: 12rem">
+  <img src="{{ product.img_src }}" class="img-fluid rounded mx-auto d-block" style="max-width: 150px;" alt="{{ product.img_alt }}">
+  <div class="card-body">
+    <h5 class="card-title">{{ product.subcategory }}</h5>
+    <p class="card-text">{{ product.format_text }}</p>
+    <p class="card-text"><strong>{{ product.price_text }}</strong></p>
+    <button class="btn w-100 btn-outline-primary rounded-pill">Añadir al carro</button>
+  </div>
+</div>
+
+{% endblock %}

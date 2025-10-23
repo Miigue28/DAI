@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Portada{% endblock %}
+
+{% block content %}
+
+<div class="container gap-md-3">
+  <section class="mb-4">
+    <p class="text-muted small">Mostrando {{ size }} resultados para {{ query }}</p>
+  </section>
+  <div class="row g-3 justify-content-center">
+    {% for product in products %}
+    <div class="col-auto">
+      <div class="card" style="width: 12rem">
+        <img src="{{ product.img_src }}" class="img-fluid rounded mx-auto d-block" style="max-width: 150px;" alt="{{ product.img_alt }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.subcategory }}</h5>
+          <p class="card-text">{{ product.format_text }}</p>
+          <p class="card-text"><strong>{{ product.price_text }}</strong></p>
+          <a href="/cart/{{ product._id }}" class="btn w-100 btn-outline-primary rounded-pill">Añadir al carro</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
