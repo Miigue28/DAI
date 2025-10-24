@@ -1,6 +1,4 @@
-{% extends "portada.html" %}
-
-{% block card %}
+{% macro item(product) %}
 
 <div class="card" style="width: 12rem">
   <img src="{{ product.img_src }}" class="img-fluid rounded mx-auto d-block" style="max-width: 150px;" alt="{{ product.img_alt }}">
@@ -12,4 +10,4 @@
   </div>
 </div>
 
-{% endblock %}
+{% endmacro %}
