@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}Portada{% endblock %}
+{% from "components/item_card.html" import display_item %}
+
+{% block title %}Mercamona compra online{% endblock %}
 
 {% block content %}
 
@@ -35,24 +37,42 @@
       <a href="/tienda/search-results?q=" class="text-decoration-none mb-3 d-inline-block">Ver todas las bajadas de precio &gt;</a>
     </div>
 
-    <div class="overflow-x-auto">
-      <div class="d-flex gap-3 flex-nowrap">
-        {% for product in products %}
+    <div class="overflow-x-auto hide-scrollbar">
+      <div class="d-flex gap-3 flex-wrap">
+        {% for product in discounted_products %}
         <div class="col-auto">
-          <div class="card" style="width: 12rem">
-            <img src="{{ product.img_src }}" class="img-fluid rounded mx-auto d-block" style="max-width: 150px;" alt="{{ product.img_alt }}">
-            <div class="card-body">
-              <h5 class="card-title">{{ product.subcategory }}</h5>
-              <p class="card-text">{{ product.format_text }}</p>
-              <p class="card-text"><strong>{{ product.price_text }}</strong></p>
-              <a href="/cart/{{ product._id }}" class="btn w-100 btn-outline-primary rounded-pill">Añadir al carro</a>
-            </div>
-          </div>
+          {{ display_item(product) }}
         </div>
         {% endfor %}
       </div>
     </div>
   </section>
+
+  <hr class="my-4">
+
+  <!-- Sección de chocolate -->
+  <section>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <h2 class="h5 fw-bold">Chocolate</h2>
+        <p class="text-muted small">Los mejores chocolates a tu alcance</p>
+      </div>
+      <a href="/tienda/search-results?q=" class="text-decoration-none mb-3 d-inline-block">Ver todos los chocolates &gt;</a>
+    </div>
+
+    <div class="overflow-x-auto hide-scrollbar">
+      <div class="d-flex gap-3 flex-nowrap">
+        {% for product in chocolate_products %}
+        <div class="col-auto">
+          {{ display_item(product) }}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <hr class="my-4">
+
 </div>
 
 {% endblock %}

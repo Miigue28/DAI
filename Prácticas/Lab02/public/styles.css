@@ -1,0 +1,34 @@
+/* Product card image styling */
+.product-thumb {
+	width: 100%;            /* let the container control width on small screens */
+	max-width: 250px;       /* cap the displayed width on larger layouts */
+	height: auto;           /* preserve aspect ratio */
+	object-fit: cover;      /* fill the box while cropping excess */
+	display: block;
+	margin: 0.5rem auto;    /* center inside card column */
+	border-radius: 6px;
+}
+
+/* When inside the bootstrap .col-md-3 card we want the image centered */
+.card .product-thumb { 
+	max-width: 250px;
+}
+
+@media (max-width: 768px) {
+	.product-thumb { max-width: 100%; }
+}
+
+/* Oculta la barra de scroll en navegadores WebKit (Chrome, Safari, Edge) */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Oculta la barra de scroll en Firefox */
+.hide-scrollbar {
+  scrollbar-width: none;
+  /* Oculta la barra de scroll en IE y Edge (versiones antiguas) */
+  -ms-overflow-style: none;
+}
+
+/* Note: sticky footer handled with Bootstrap utilities (d-flex flex-column min-vh-100, flex-fill, mt-auto) */
+

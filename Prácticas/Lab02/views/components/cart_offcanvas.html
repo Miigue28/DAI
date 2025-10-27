@@ -7,24 +7,21 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body d-flex flex-column">
-    <div>
-      {% if cart_item_count %}
-        <p class="text-muted">Tienes {{ cart_item_count }} artículo(s) en tu carrito.</p>
-        {% for id, product, quantity in cart_items %}
-          {{ cart_item(product) }}
-        {% endfor %}
-      {% else %}
-        <p class="text-muted">Tu carrito está vacío.</p>
-      {% endif %}
-    </div>
-
-    <div class="mt-auto">
-      <section class="d-flex justify-content-between">
-        <h5 class="text-muted">Total:</h5>
-        <h4 class="fw-bold">39,99 €</h4>
-      </section>
-      
-      <button class="btn btn-primary bg-success w-100">Tramitar pedido</button>
-    </div>
+    {% if cart_item_count %}
+      <p class="text-muted">Tienes {{ cart_item_count }} artículo(s) en tu carrito.</p>
+      {% for item in cart_items %}
+        {{ cart_item(item) }}
+      {% endfor %}
+    {% else %}
+      <p class="text-muted">Tu carrito está vacío.</p>
+    {% endif %}
   </div>
+  <div class="bg-body m-3">
+    <section class="d-flex justify-content-between">
+      <h5 class="text-muted">Total:</h5>
+      <h4 class="fw-bold">{{ total_price or 0.0 }} €</h4>
+    </section>
+    
+    <button class="btn btn-primary bg-success w-100">Tramitar pedido</button>
+    </div>
 </div>
