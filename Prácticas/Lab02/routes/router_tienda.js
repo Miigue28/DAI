@@ -19,15 +19,17 @@ router.get("/", async (req, res) => {
     });
     req.session.total_price = total_price.toFixed(2);
 
-    // Fetch discounted products
-    const discounted_products = await Product.find({
-      discount: { $exists: true }
-    }).limit(8).lean();
+    // Select random discounted products
+    const discounted_products = await Product.aggregate([
+      { $match: { discount: { $exists: true } } },
+      { $sample: { size: 6 } }
+    ]);
 
-    // Fetch chocolate products
-    const chocolate_products = await Product.find({
-      category: 'Chocolate'
-    }).limit(8).lean();
+    // Select random chocolate products
+    const chocolate_products = await Product.aggregate([
+      { $match: { category: 'Chocolate' } },
+      { $sample: { size: 6 } }
+    ]);  
 
     res.render('portada.html', { 
       discounted_products, 

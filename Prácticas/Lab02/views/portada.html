@@ -2,8 +2,6 @@
 
 {% from "components/item_card.html" import display_item %}
 
-{% block title %}Mercamona compra online{% endblock %}
-
 {% block content %}
 
 <div class="container gap-md-3">
@@ -20,7 +18,7 @@
            style="max-height: 300px; object-fit: cover;">
       
       <div class="card-img-overlay d-flex align-items-end">
-        <a href="/tienda/search-results?q=" class="btn btn-outline-light rounded-pill">Ver productos</a>
+        <a href="/search-results?q=" class="btn btn-outline-light rounded-pill">Ver productos</a>
       </div>
     </div>
   </section>
@@ -34,11 +32,11 @@
         <h2 class="h5 fw-bold">Bajadas de precio</h2>
         <p class="text-muted small">Échales un vistazo</p>
       </div>
-      <a href="/tienda/search-results?q=" class="text-decoration-none mb-3 d-inline-block">Ver todas las bajadas de precio &gt;</a>
+      <a href="/search-results?q=" class="text-decoration-none mb-3 d-inline-block">Ver todas las bajadas de precio &gt;</a>
     </div>
 
     <div class="overflow-x-auto hide-scrollbar">
-      <div class="d-flex gap-3 flex-wrap">
+      <div class="d-flex gap-3 flex-nowrap">
         {% for product in discounted_products %}
         <div class="col-auto">
           {{ display_item(product) }}
@@ -57,7 +55,7 @@
         <h2 class="h5 fw-bold">Chocolate</h2>
         <p class="text-muted small">Los mejores chocolates a tu alcance</p>
       </div>
-      <a href="/tienda/search-results?q=" class="text-decoration-none mb-3 d-inline-block">Ver todos los chocolates &gt;</a>
+      <a href="/search-results?q=Chocolate" class="text-decoration-none mb-3 d-inline-block">Ver todos los chocolates &gt;</a>
     </div>
 
     <div class="overflow-x-auto hide-scrollbar">
