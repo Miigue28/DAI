@@ -60,11 +60,23 @@
                 </svg>
               </a>
               <div class="dropdown-menu dropdown-menu-end p-3 shadow-sm" style="width: 280px;">
-                <h5 class="fw-bold mb-0">Invitado</h5>
-                <p class="text-primary small">Entregar en 18003</p>
-                <hr class="my-2">
-                <a class="btn btn-primary w-100 my-2" data-bs-toggle="modal" data-bs-target="#userModal">Identifícate</a>
-                <hr class="my-2">
+                {% if name %}
+                  <h5 class="fw-bold mb-0">Hola {{ name }}</h5>
+                  <hr class="my-3">
+                  <a class="d-flex align-items-center text-dark text-decoration-none my-2" href="#">
+                  <i class="fa-solid fa-box fa-lg text-muted me-3"></i>
+                  <span>Mis Pedidos</span>
+                  </a>
+                  <a class="d-flex align-items-center text-dark text-decoration-none my-2" href="#">
+                    <i class="fa-solid fa-user fa-lg text-muted me-3"></i>
+                    <span>Cuenta</span>
+                  </a>
+                {% else %}
+                  <h5 class="fw-bold mb-0">Invitado</h5>
+                  <hr class="my-3">
+                  <a class="btn btn-primary w-100 my-2" data-bs-toggle="modal" data-bs-target="#userModal">Identifícate</a>
+                {% endif %}
+                <hr class="my-3">
                 <a class="d-flex align-items-center text-dark text-decoration-none my-2" href="#">
                   <i class="fa-solid fa-question-circle fa-lg text-muted me-3"></i>
                   <span>Preguntas frecuentes</span>
@@ -73,6 +85,11 @@
                   <i class="fa-solid fa-comment-dots fa-lg text-muted me-3"></i>
                   <span>Ayuda</span>
                 </a>
+                {% if name %}
+                  <div class="d-grid mt-3">
+                    <a class="btn btn-outline-secondary" href="/user/logout">Cerrar sesión</a>
+                  </div>
+                {% endif %}
               </div>
             </div>
           </div>
@@ -93,5 +110,7 @@
 
   {% include "components/cart_offcanvas.html" %}
   {% include "components/login_modal.html" %}
+
+  {% block extra_scripts %}{% endblock %}
 </body>
 </html>

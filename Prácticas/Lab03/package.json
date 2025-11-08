@@ -11,10 +11,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "bootstrap": "^5.3.8",
     "chokidar": "^3.6.0",
+    "cookie-parser": "^1.4.7",
     "express": "^5.1.0",
     "express-session": "^1.18.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.18.3",
     "node-html-parser": "^7.0.1",
     "nunjucks": "^3.2.4"
