@@ -20,6 +20,11 @@
       </div> 
     {% endif %}
     <a href="/cart/{{ product._id }}" class="btn w-100 btn-outline-primary rounded-pill mt-auto">Añadir al carro</a>
+    {% if is_admin %}
+      <a href="/admin/edit/{{ product._id }}" class="btn w-100 btn-outline-warning rounded-pill mt-2">
+        <i class="fa-solid fa-pen-to-square me-2"></i>
+      </a>
+    {% endif %}
   </div>
 </div>
 

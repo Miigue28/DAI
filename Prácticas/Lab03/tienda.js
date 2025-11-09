@@ -51,9 +51,12 @@ app.use((req, res, next) => {
 
     // Attach name to request and locals (for templates)
 		req.name = data.name
+    req.is_admin = data.admin
 		app.locals.name = data.name
+		res.locals.is_admin = data.admin
 	} else {
 		app.locals.name = undefined
+		res.locals.is_admin = undefined
 	}
 	next()
 });

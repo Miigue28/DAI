@@ -23,7 +23,7 @@ router.post('/login', async (req, res) => {
     }
 
     // Sign JWT token
-    const token = jwt.sign({name: user.name, email: user.email}, process.env.SECRET_KEY)
+    const token = jwt.sign({name: user.name, email: user.email, admin: user.admin}, process.env.SECRET_KEY)
  
     // Set cookie with token
     res.cookie("access_token", token, {
