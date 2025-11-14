@@ -1,0 +1,32 @@
+GET http://localhost:8000/api/status
+
+###
+
+GET http://localhost:8000/api/products
+
+###
+
+POST http://localhost:8000/api/products
+content-Type: application/json
+
+{
+  "category": "Frutas",
+  "img_src": "https://prod-mercadona.imgix.net/images/e51fbd5638b241e5e21e7af11b8f03b7.jpg?fit=crop&h=300&w=300",
+  "img_alt": "Granada",
+  "format_text": "Pieza 298 g approx.",
+  "price_text": "0,89 €/ud.",
+  "price_number": 0.89
+}
+
+###
+
+DELETE http://localhost:8000/api/products/6916e95f1767a45a68cf7a11
+
+###
+
+PUT http://localhost:8000/api/products/6916e9771767a45a68cf7a14
+content-Type: application/json
+
+{
+  "price_number": 0.89
+}
