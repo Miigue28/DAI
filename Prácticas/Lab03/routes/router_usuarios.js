@@ -32,16 +32,14 @@ router.post('/login', async (req, res) => {
     	secure: process.env.IN === 'production'
     }).redirect("/")
   } catch (err) {
-    console.error(err);
-    res.status(500).send(err);
+    res.status(500).send(`Login failed: ${err}`);
   }
 })
 
 // Register
 router.post('/register', async (req, res) => {
-	const { name, surname, email, password } = req.body;
-
 	try {
+    const { name, surname, email, password } = req.body;
     const user = new User({ name, surname, email, password });
     await user.save();
     res.redirect('/');
