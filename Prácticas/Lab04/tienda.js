@@ -131,8 +131,7 @@ const swaggerOptions = {
       }
     }
   },
-  // Make sure this path is correct!
-  apis: ['./routes/router_api.js'], 
+  apis: ['./routes/*.js'], 
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);

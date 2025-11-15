@@ -1,40 +1,41 @@
 import express from 'express';
+
 import logger from '../utils/logger.js';
 
 import Product from '../model/Product.js';
 
 const router = express.Router();
 
-/*
+/**
  * @swagger
  * /api/status:
- *  get:
- *   summary: Get API status
- *   responses:
- *    200:
- *     description: API is running
- *     content:
- *      application/json:
- *       schema:
- *        type: object
- *        properties:
- *         status:
- *          type: string
- *          example:
- *           status: API is running
-*/
+ *   get:
+ *     summary: Retrieve API status
+ *     responses:
+ *       200:
+ *         description: A successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: API is running!
+ */
 router.get('/status', (req, res) => {
-  res.json({ status: 'API is running' });
+  res.json({ message: 'API is running!' });
 });
 
-/*
+
+/**
  * @swagger
  * /api/products:
  *  get:
  *   summary: Retrieve a list of products
  *   responses:
  *    200:
- *     description: A list of products
+ *     description: List of all products
  *     content:
  *      application/json:
  *       schema:
@@ -44,20 +45,24 @@ router.get('/status', (req, res) => {
  *          type: array
  *          items:
  *           $ref: '#/components/schemas/Product'
- *   500:
- *    description: Server error
- *    content:
- *     application/json:
- *      schema:
- *       type: object
- *       properties:
- *        error:
- *         type: string
- *        example: Unable to retrieve products
+ *    500:
+ *     description: Could not retrieve products
+ *     content:
+ *      application/json:
+ *       schema:
+ *        type: object
+ *        properties:
+ *         error:
+ *           type: string
+ *         details:
+ *           type: string
+ *       example:
+ *         error: Could not retrieve products
+ *         details: "Error message..." 
 */
 router.get('/products', async (req, res) => {
   try {
-    const products = await Product.find({}).limit(3).lean();
+    const products = await Product.find({}).lean();
     res.json({ products });
     logger.info('Retrieved products successfully');
   } catch (err) {
@@ -66,42 +71,42 @@ router.get('/products', async (req, res) => {
   }
 });
 
-/*
+/**
  * @swagger
  * /api/products/{id}:
- * get:
- *  summary: Retrieve a single product by ID
- *  parameters:
- *  - in: path
- *    name: id
- *    required: true
- *    schema:
- *      type: string
+ *  get:
+ *    summary: Retrieve a single product by ID
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        schema:
+ *          type: string
  *    description: The ID of the product to retrieve
- *  responses:
- *    200:
- *      description: A single product
- *      content:
- *        application/json:
- *          schema:
- *            type: object
- *            properties:
- *              product:
- *                $ref: '#/components/schemas/Product'
- *    404:
- *      description: Product not found
- *      content:
- *        application/json:
- *          schema:
- *            type: object
- *            properties:
- *              error:
- *                type: string
- *              details:
- *                type: string
+ *    responses:
+ *      200:
+ *        description: A single product
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                product:
+ *                  $ref: '#/components/schemas/Product'
+ *      404:
+ *        description: Product not found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                error:
+ *                  type: string
+ *                details:
+ *                  type: string
  *            example:
  *              error: Product not found
- *              details: "CastError: BSONError: ..."
+ *              details: "Error message..."  
  */
 router.get('/products/:id', async (req, res) => {
   try {
@@ -115,7 +120,7 @@ router.get('/products/:id', async (req, res) => {
   }
 });
 
-/*
+/**
  * @swagger
  * /api/products:
  *  post:
@@ -128,7 +133,7 @@ router.get('/products/:id', async (req, res) => {
  *       $ref: '#/components/schemas/Product'
  *   responses:
  *    200:
- *      description: Product created successfully
+ *      description: Successfully created product
  *      content:
  *        application/json:
  *          schema:
@@ -138,27 +143,20 @@ router.get('/products/:id', async (req, res) => {
  *                type: string
  *              product:
  *                $ref: '#/components/schemas/Product'
- *            example:
- *              message: Product successfully created
- *              product:
- *                _id: "60d...e1"
- *                category: "Frutas"
- *                price_number: 0.89
- * ...
- *  500:
- *   description: Server error
- *   content:
- *    application/json:
- *     schema:
- *      type: object
- *      properties:
- *       error:
- *        type: string
- *       details:
- *        type: string
- *      example:
- *        error: Unable to create product
- *        details: "Validation error: ..."
+ *    500:
+ *      description: Server error
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              error:
+ *                type: string
+ *              details:
+ *                type: string
+ *          example:
+ *            error: Unable to create product
+ *            details: "Error message..."
  */
 router.post('/products', async (req, res) => {
   try {
@@ -176,44 +174,44 @@ router.post('/products', async (req, res) => {
   }
 });
 
-/*
+/**
  * @swagger
  * /api/products/{id}:
- * delete:
- *  summary: Delete a product by ID
- *  parameters:
- *  - in: path
- *    name: id
- *    required: true
+ *  delete:
+ *    summary: Delete a product by ID
+ *    parameters:
+ *    - in: path
+ *      name: id
+ *      required: true
  *    schema:
  *      type: string
  *    description: The ID of the product to delete
- *  responses:
- *    200:
- *      description: Product deleted successfully
- *      content:
- *        application/json:
- *          schema:
- *            type: object
+ *    responses:
+ *      200:
+ *        description: Successfully deleted product
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
  *            properties:
  *              message:
  *                type: string
  *            example:
  *              message: Product successfully deleted
- *    500:
- *      description: Server error
- *      content:
- *        application/json:
- *          schema:
- *            type: object
+ *      500:
+ *        description: Server error
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
  *            properties:
  *              error:
  *                type: string
  *              details:
  *                type: string
- *      example:
- *        error: Unable to delete product
- *        details: "Error message..."
+ *            example:
+ *              error: Unable to delete product
+ *              details: "Error message..."
  */
 router.delete('/products/:id', async (req, res) => {
   try {
@@ -227,54 +225,47 @@ router.delete('/products/:id', async (req, res) => {
   }
 });
 
-/*
+/**
  * @swagger
  * /api/products/{id}:
- * put:
- *  summary: Update a product by ID
- *  parameters:
- *  - in: path
- *    name: id
- *    required: true
+ *  put:
+ *    summary: Update a product by ID
+ *    parameters:
+ *    - in: path
+ *      name: id
+ *      required: true
  *    schema:
  *      type: string
  *    description: The ID of the product to update
- *  requestBody:
- *    required: true
- *    content:
- *      application/json:
- *        schema:
- *          $ref: '#/components/schemas/Product'
- *  responses:
- *    200:
- *      description: Product updated successfully
+ *    requestBody:
+ *      required: true
  *      content:
  *        application/json:
  *          schema:
- *            type: object
- *            properties:
- *              message:
- *                type: string
- *              product:
- *                $ref: '#/components/schemas/Product'
- *          example:
- *            message: Product successfully updated
- *            product:
- *              _id: "60d...e1"
- *              category: "Frutas"
- *              price_number: 0.99
- *              ...
- *    500:
- *      description: Server error
- *      content:
- *        application/json:
- *          schema:
- *            type: object
- *            properties:
- *              error:
- *                type: string
- *              details:
- *                type: string
+ *            $ref: '#/components/schemas/Product'
+ *    responses:
+ *      200:
+ *        description: Product updated successfully
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                message:
+ *                  type: string
+ *                product:
+ *                  $ref: '#/components/schemas/Product'
+ *      500:
+ *        description: Server error
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                error:
+ *                  type: string
+ *                details:
+ *                  type: string
  *          example:
  *            error: Unable to update product
  *            details: "Error message..."
