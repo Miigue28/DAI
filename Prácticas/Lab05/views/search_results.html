@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% from "components/item_card.html" import display_item %}
+
+{% block content %}
+
+<div class="container gap-md-3">
+  <section class="mb-4">
+    {% if query %}
+      <p class="text-muted small">Mostrando {{ size }} resultados para {{ query }}</p>
+    {% else %}
+      <p class="text-muted small">Mostrando {{ size }} resultados</p>
+    {% endif %}
+  </section>
+  <div class="row g-3 justify-content-center">
+    {% for product in products %}
+    <div class="col-auto">
+      {{ display_item(product) }}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

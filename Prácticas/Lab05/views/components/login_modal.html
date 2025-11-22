@@ -1,0 +1,141 @@
+<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userodalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body text-center px-4 pb-4">
+        <div id="modal-login-body">
+          <svg width="34" height="34" viewBox="0 0 24 24" class="mb-2" aria-hidden="true" focusable="false">
+            <rect width="24" height="24" rx="4" fill="#0d6efd"></rect>
+            <text x="12" y="16" text-anchor="middle" font-size="12" fill="white" font-family="Arial, Helvetica, sans-serif">M</text>
+          </svg>
+          <h4 class="fw-bold" id="userModalLabel">Identifícate</h4>
+          <form action="/user/login" class="needs-validation" method="post" novalidate>
+            <div class="mb-3 text-start has-validation">
+              <label for="login-email" class="form-label small">Email</label>
+              <input type="email" class="form-control" id="login-email" name="email" placeholder="nombre@ejemplo.com" required>
+              <div class="invalid-feedback">
+                Introduce un email válido
+              </div>
+            </div>
+
+            <div class="mb-3 text-start has-validation">
+              <label for="login-password" class="form-label small">Contraseña</label>
+              <input type="password" class="form-control" id="login-password" name="password" placeholder="Contraseña" minlength="6" required>
+              <div class="invalid-feedback">
+                Introduce una contraseña válida
+              </div>
+            </div>
+
+            <div class="d-grid mb-2">
+              <button type="submit" class="btn btn-primary">Continuar</button>
+            </div>
+
+            <div class="d-grid">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </form>
+          <div class="modal-footer justify-content-center border-0 pt-3">
+            <p>
+              ¿No tienes una cuenta?
+              <a id="goto-register" class="btn btn-link link-underline-opacity-0 ms-2">Registrarse</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="d-none" id="modal-register-body">
+          <svg width="34" height="34" viewBox="0 0 24 24" class="mb-2" aria-hidden="true" focusable="false">
+            <rect width="24" height="24" rx="4" fill="#0d6efd"></rect>
+            <text x="12" y="16" text-anchor="middle" font-size="12" fill="white" font-family="Arial, Helvetica, sans-serif">M</text>
+          </svg>
+          <h4 class="fw-bold" id="userModalLabel">Regístrate</h4>
+          <form action="/user/register" class="needs-validation" method="post" novalidate>
+            <div class="mb-3 text-start has-validation">
+              <label for="register-name" class="form-label small">Nombre</label>
+              <input type="text" class="form-control" id="register-name" name="name" placeholder="Nombre" required>
+              <div class="invalid-feedback">
+                Introduce un nombre válido
+              </div>
+            </div>
+            <div class="mb-3 text-start has-validation">
+              <label for="register-surname" class="form-label small">Apellido</label>
+              <input type="text" class="form-control" id="register-surname" name="surname" placeholder="Apellido" required>
+              <div class="invalid-feedback">
+                Introduce al menos un apellido válido
+              </div>
+            </div>
+            <div class="mb-3 text-start has-validation">
+              <label for="register-email" class="form-label small">Email</label>
+              <input type="email" class="form-control" id="register-email" name="email" placeholder="Email" required>
+              <div class="invalid-feedback">
+                Introduce un email válido
+              </div>
+            </div>
+            <div class="mb-3 text-start has-validation">
+              <label for="register-password" class="form-label small">Contraseña</label>
+              <input type="password" class="form-control" id="register-password" name="password" placeholder="Contraseña" minlength="6" required>
+              <div class="invalid-feedback">
+                Introduce una contraseña válida
+              </div>
+            </div>
+            <div class="d-grid mb-2">
+              <button type="submit" class="btn btn-primary">Continuar</button>
+            </div>
+
+            <div class="d-grid">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block extra_scripts %}
+<script>
+  // JavaScript to switch between login and registration forms
+  document.addEventListener('DOMContentLoaded', () => {
+  
+    // Fetch both forms
+    const login = document.getElementById('modal-login-body');
+    const registration = document.getElementById('modal-register-body');
+
+    // Fetch the "Registrarse" button
+    const register_button = document.getElementById('goto-register');
+  
+    // Listen for click on the "Registrarse" button
+    register_button.addEventListener('click', () => {
+      // Hide login and show registration
+      login.classList.add('d-none');
+      registration.classList.remove('d-none');
+    });
+  });
+</script>
+
+<script>
+  // JavaScript for disabling form submissions if there are invalid fields
+  document.addEventListener('DOMContentLoaded', () => {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        // If valid, the form will submit normally
+        form.classList.add('was-validated')
+      }, false)
+    })
+  });
+</script>
+{% endblock %}
