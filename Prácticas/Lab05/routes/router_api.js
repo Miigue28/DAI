@@ -283,4 +283,62 @@ router.put('/products/:id', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /api/search/{query}:
+ *  get:
+ *    summary: Search products by query
+ *    parameters:
+ *    - in: path
+ *      name: query
+ *      required: true
+ *    schema:
+ *      type: string
+ *    description: The search query
+ *    responses:
+ *      200:
+ *        description: Number of products matching the search query
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                n_products:
+ *                  type: integer
+ *            example:
+ *              n_products: 5
+ *      500:
+ *        description: Unable to perform search
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                error:
+ *                  type: string
+ *                details:
+ *                  type: string
+ *            example:
+ *              error: Unable to perform search
+ *              details: "Error message..."
+ */
+router.get('/search/:query', async (req, res) => {
+  try {
+    const query = req.params.query;
+    const products = await Product.find({
+      $or: [
+        { category: { $regex: query, $options: 'i' } },
+        { subcategory: { $regex: query, $options: 'i' } },
+        { img_alt: { $regex: query, $options: 'i' } },
+        { format_text: { $regex: query, $options: 'i' } }
+      ]
+    }).lean();
+    res.json({ n_products : products.length, products: products });
+    logger.info(`Performed search with query ${req.params.query} successfully`);
+  } catch (err) {
+    res.status(500).json({ error: 'Unable to perform search', details: err });
+    logger.error(`Error performing search with query ${req.params.query}: ${err}`);
+  }
+})
+
 export default router;

@@ -141,7 +141,7 @@ app.use('/user', UserRouter)
 app.use('/api', APIRouter)
 
 app.get("/test", (req, res) => {
-  res.render('base.html')
+  res.render('index.html')
 })
 
 const PORT = process.env.PORT || 8000
