@@ -85,4 +85,8 @@ router.get("/account", (req, res) => {
   res.render('login.html');
 })
 
+router.get("/anticipated-search", (req, res) => {
+  res.render('anticipated_search.html');
+})
+
 export default router

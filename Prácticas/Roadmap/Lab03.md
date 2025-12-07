@@ -200,7 +200,7 @@ req.is_admin = data.admin
 res.locals.is_admin = data.admin
 ```
 
-> Here we use `res.locals` instead of `app.locals` because we don't want allow admin status leakeage to the UI.
+> Here we use `res.locals` instead of `app.locals` because we don't want allow admin status leakage to the UI.
 
 Finally, we add a new button to the `item_card.html` macro that is only visible to admin users.
 

@@ -140,10 +140,6 @@ app.use('/', ShopRouter)
 app.use('/user', UserRouter)
 app.use('/api', APIRouter)
 
-app.get("/test", (req, res) => {
-  res.render('index.html')
-})
-
 const PORT = process.env.PORT || 8000
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`)

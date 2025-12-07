@@ -20,7 +20,14 @@
       </div> 
     {% endif %}
     {% if is_admin %}
-      <input type="number" max="{{product.price_number}}" step="0.01" class="form-control form-control-sm my-2 modify-price-input" data-product-id="{{ product._id }}" value="{{ product.price_number }}">
+      <input 
+        type="number" 
+        max="{{product.price_number}}" 
+        step="0.01"
+        class="form-control form-control-sm my-2 modify-price-input" 
+        data-product-id="{{ product._id }}" 
+        value="{{ product.price_number }}"
+      >
     {% endif %}
     <a href="/cart/{{ product._id }}" class="btn w-100 btn-outline-primary rounded-pill mt-auto">Añadir al carro</a>
     {% if is_admin %}
