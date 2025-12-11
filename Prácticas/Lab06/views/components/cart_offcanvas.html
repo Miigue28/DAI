@@ -1,0 +1,27 @@
+{% from "components/cart_item_card.html" import cart_item %}
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Tu Carrito</h5>
+
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+    {% if cart_item_count %}
+      <p class="text-muted">Tienes {{ cart_item_count }} artículo(s) en tu carrito.</p>
+      {% for item in cart_items %}
+        {{ cart_item(item) }}
+      {% endfor %}
+    {% else %}
+      <p class="text-muted">Tu carrito está vacío.</p>
+    {% endif %}
+  </div>
+  <div class="bg-body m-3">
+    <section class="d-flex justify-content-between">
+      <h5 class="text-muted">Total:</h5>
+      <h4 class="fw-bold">{{ total_price or 0.0 }} €</h4>
+    </section>
+    
+    <button class="btn btn-primary bg-success w-100">Tramitar pedido</button>
+    </div>
+</div>
